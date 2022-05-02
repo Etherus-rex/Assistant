@@ -1,8 +1,26 @@
-
+import pyttsx3
 import os
+import time
+import webbrowser
+import speech_recognition as sr
+
+#  setting the voice for the assisstant
+engine = pyttsx3.init()
+voice = engine.getProperty('voices')
+engine.setProperty('voice',voice[1].id)
 
 
 Assistant_Active = True
+
+
+
+
+# function for Text to speech
+def speak(audio):
+    engine.say(audio)
+    print(audio)
+    engine.runAndWait()
+
 
 
 # Function to check Word Present
@@ -17,6 +35,38 @@ def word_is_present(word,char):
 # Function to Open THe Driectories through Python Script
 def unfold(route):
     os.startfile(route)
+
+
+
+# webbrowser Shortfuction
+def search(text):
+    webbrowser.open_new_tab('https://www.google.com/search?q='+text)
+
+
+
+
+
+# voice input Function
+def voice_command():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print('listening....')
+        r.pause_threshold = 1
+        audio = r.listen(source)
+    try:
+        print('Recognizing')
+        query = r.recognize_google(audio, language='en-in')
+        print(f"user said:{query}")
+
+    except Exception :
+        speak('sorry Please repeat')
+        return"none"
+    return(query)
+
+
+
+
+
 
 
 
@@ -41,14 +91,20 @@ playlist_gamma = ''
 
 
 
+
+
+
+
+
+
 ######    START UP GReet     #####
-print('starting')
-print('system Protocols initiated')
-print('server connection stable')
-print('machine state up and running')
-print('okay sir , everything looks fine')
-print('all systems are initiated without fail')
-print('so sir , what do u need me for ?')
+speak('starting')
+speak('system Protocols initiated')
+speak('server connection stable')
+speak('machine state up and running')
+speak('okay sir , everything looks fine')
+speak('all systems are initiated without fail')
+speak('so sir , what do u need me for ?')
 
 
 
@@ -64,53 +120,53 @@ print('so sir , what do u need me for ?')
 
 while Assistant_Active:
 
-    ai = input("Command : ")
+    ai = voice_command()
     user_input = ai.lower()
 
     print(user_input)
     #####       THE OPEN COMMANDS        ######
 
     if 'open' in user_input:
-        print('okay sir')
+        speak('okay sir')
 
         print(user_input)
         
         if 'google' in user_input:
-            print('activating google chrome')
+            speak('activating google chrome')
             unfold(google)
     
         elif word_is_present(user_input,'cmd')=='present':
-            print('activating cmd')
+            speak('activating cmd')
             unfold(cmd)
         
         elif word_is_present(user_input,'vscode')=='present':
-            print('opennig vs code')
+            speak('opennig vs code')
             unfold(vscode)
         
         elif word_is_present(user_input,'code')=='present':
-            print('opennig vs code')
+            speak('opennig vs code')
             unfold(vscode)
 
 
 
         elif word_is_present(user_input,'data')=='present':
-            print('accessing data')
+            speak('accessing data')
             unfold(data)
         
         elif word_is_present(user_input,'anime')=='present':
-            print('opening directory')
+            speak('opening directory')
             unfold(anime_dir)
         
         elif word_is_present(user_input,'music')=='present':
-            print('locating music directory')
+            speak('locating music directory')
             unfold(music_dir)
         
         elif word_is_present(user_input,'filmora')=='present':
-            print('activating filmora')
+            speak('activating filmora')
             unfold(filmora)
         
         elif word_is_present(user_input,'vlc')=='present':
-            print('firing off vlc')
+            speak('firing off vlc')
             unfold(vlc)
         
         elif word_is_present(user_input,'android')=='present':
@@ -120,27 +176,27 @@ while Assistant_Active:
             unfold(emulator)
         
         elif word_is_present(user_input,'git')=='present':
-            print('firing of git bash')
+            speak('firing of git bash')
             unfold(git)
         
         elif word_is_present(user_input,'bash')=='present':
-            print('firing of git bash')
+            speak('firing of git bash')
             unfold(git)
         
         elif word_is_present(user_input,'setting')=='present':
-            print('opening system settings')
+            speak('opening system settings')
             unfold(settings)
         
         elif word_is_present(user_input,'control pannel')=='present':
-            print('activating control pannel')
+            speak('activating control pannel')
             unfold(control_pannel)
         
         elif word_is_present(user_input,'youtube')=='present':
-            print('opening youtube')
+            speak('opening youtube')
             webbrowser.open('https://youtube.com/')
         
         elif word_is_present(user_input,'gmail')=='present':
-            print('accessing gmail account')
+            speak('accessing gmail account')
             webbrowser.open('https://accounts.google.com/b/0/AddMailService')
 
 
@@ -151,67 +207,67 @@ while Assistant_Active:
     elif word_is_present(user_input,'fire off') == 'present':
         
         if word_is_present(user_input,'google')=='present':
-            print('firing off google chrome')
+            speak('firing off google chrome')
             unfold(google)
         
         elif word_is_present(user_input,'cmd')=='present':
-            print('firing off cmd')
+            speak('firing off cmd')
             unfold(cmd)
         
         elif word_is_present(user_input,'vscode')=='present':
-            print('firing off vscode')
+            speak('firing off vscode')
             unfold(vscode)
         
         elif word_is_present(user_input,'data')=='present':
-            print('firing off data directory')
+            speak('firing off data directory')
             unfold(data)
         
         elif word_is_present(user_input,'anime directory')=='present':
-            print('firing off anime directory')
+            speak('firing off anime directory')
             unfold(anime_dir)
         
         elif word_is_present(user_input,'music directory')=='present':
-            print('firing off music directory')
+            speak('firing off music directory')
             unfold(music_dir)
         
         elif word_is_present(user_input,'filmora')=='present':
-            print('firing off filmora')
+            speak('firing off filmora')
             unfold(filmora)
         
         elif word_is_present(user_input,'vlc')=='present':
-            print('firing off vlc')
+            speak('firing off vlc')
             unfold(vlc)
         
         elif word_is_present(user_input,'android')=='present':
-            print('emulator')
+            speak('emulator')
             unfold(emulator)
         
         elif word_is_present(user_input,'emulator')=='present':
-            print('emulator')
+            speak('emulator')
             unfold(emulator)
         
         elif word_is_present(user_input,'git')=='present':
-            print('firing off git bash')
+            speak('firing off git bash')
             unfold(git)
         
         elif word_is_present(user_input,'bash')=='present':
-            print('firing off git bash')
+            speak('firing off git bash')
             unfold(git)
         
         elif word_is_present(user_input,'setting')=='present':
-            print('firing off settings')
+            speak('firing off settings')
             unfold(settings)
         
         elif word_is_present(user_input,'control pannel')=='present':
-            print('firing off control panel')
+            speak('firing off control panel')
             unfold(control_pannel)
         
         elif word_is_present(user_input,'youtube')=='present':
-            print('accessing youtube')
+            speak('accessing youtube')
             webbrowser.open('https://youtube.com/')
         
         elif word_is_present(user_input,'gmail')=='present':
-            print('accessing gmail')
+            speak('accessing gmail')
             webbrowser.open('https://accounts.google.com/b/0/AddMailService')
     
     
@@ -222,22 +278,22 @@ while Assistant_Active:
     elif word_is_present(user_input,'play ')=='present':
     
         if word_is_present(user_input,'music alpha')=='present':
-            print('playing the alpha series playlist')
+            speak('playing the alpha series playlist')
             unfold(playlist_alpha)
     
         elif word_is_present(user_input,'music beta')=='present':
-            print('playing the beta series playlist')
+            speak('playing the beta series playlist')
             unfold(playlist_beta)
      
         elif word_is_present(user_input,'playlist gamma')=='present':
-            print('playlist')
+            speak('playlist')
             unfold(playlist_gamma)
     
     
      ########      THE GOOGLE SEARCH COMMAND     #######
     
     elif word_is_present(user_input,'search for')=='present':
-        print('searching')
+        speak('searching')
         index = user_input.find('search for ') + 11
         info = user_input[index::]
         search(info)
@@ -245,7 +301,7 @@ while Assistant_Active:
      ############    THE INFORMATION SEARCH  COMMAND  ###########
 
     elif word_is_present(user_input,'about')=='present':
-        print('finding')
+        speak('finding')
         index = user_input.find('about ') + 6
         info = user_input[index::]
         search(info)
@@ -255,14 +311,14 @@ while Assistant_Active:
 
 
     elif word_is_present(user_input,'youtube')=='present':
-        print('accessing youtube')
+        speak('accessing youtube')
         webbrowser.open('https://youtube.com/')
     
 
     ############         THE GMAIL COMMAND        #################
     
     elif word_is_present(user_input,'gmail')=='present':
-        print('accessing gamil')
+        speak('accessing gamil')
         webbrowser.open('https://accounts.google.com/b/0/AddMailService')
 
 
@@ -270,19 +326,19 @@ while Assistant_Active:
     
     
     elif word_is_present(user_input,'exit')=='present':
-        print('exiting')
+        speak('exiting')
         break
     elif word_is_present(user_input,'who are u')=='present':
-        print('sir u programmed me i am siesta')
+        speak('sir u programmed me i am siesta')
     elif word_is_present(user_input,'your current version')=='present':
-        print('my current version is 1.0.1')
+        speak('my current version is 1.0.1')
     elif word_is_present(user_input,'shutdown')=='present':
-        print('shuting down third party')
+        speak('shuting down third party')
         break
 
 
 
-print('shutting down the core programme')
-print('shutting down all other servers and system protocols')
-print('if u need something just ask')
-print('have a nice time')
+speak('shutting down the core programme')
+speak('shutting down all other servers and system protocols')
+speak('if u need something just ask')
+speak('have a nice time')
